@@ -24,7 +24,8 @@ function logicvoid_audio_player_register_block() {
         'logicvoid-audio-player-block-editor',
         plugins_url( 'block.js', __FILE__ ),
         array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n', 'wp-blob' ),
-        filemtime( plugin_dir_path( __FILE__ ) . 'block.js' )
+        filemtime( plugin_dir_path( __FILE__ ) . 'block.js' ),
+        true
     );
 
     // Register block editor style
@@ -207,10 +208,48 @@ function logicvoid_audio_player_render_block($attributes) {
     // Container for flexible layout
     $output .= '<div class="logicvoid-audio-player-container">';
     
-    // Image section (if provided)
-    if (!empty($image)) {
+    // Image section
+    if (!empty($attributes['imageID'])) {
+        // Use WordPress attachment functions with ID
         $output .= '<div class="logicvoid-audio-player-image">';
-        $output .= '<img src="' . $image . '" alt="' . $title . ' cover">';
+        $output .= wp_get_attachment_image(
+            $attributes['imageID'],
+            'medium',
+            false,
+            array(
+                'alt' => $title . ' cover',
+                'class' => 'logicvoid-audio-player-cover'
+            )
+        );
+        $output .= '</div>';
+    } elseif (!empty($image)) {
+        // If we have URL but no ID, try to get the attachment ID from URL
+        $attachment_id = attachment_url_to_postid($image);
+        
+        $output .= '<div class="logicvoid-audio-player-image">';
+        if ($attachment_id) {
+            // If we found an ID, use it
+            $output .= wp_get_attachment_image(
+                $attachment_id,
+                'medium',
+                false,
+                array(
+                    'alt' => $title . ' cover',
+                    'class' => 'logicvoid-audio-player-cover'
+                )
+            );
+        } else {
+            // For external URLs, use wp_get_image_tag function
+            $width = 300; // Default width
+            $height = 300; // Default height
+            $output .= get_image_tag(
+                0, // No attachment ID for external images
+                $image,
+                $title . ' cover',
+                'align-none', // CSS class
+                array('width' => $width, 'height' => $height)
+            );
+        }
         $output .= '</div>';
     }
     
