@@ -60,6 +60,101 @@ function isValidHexColor(color) {
         el(
           InspectorControls,
           { key: "inspector" },
+          el(
+            PanelBody,
+            { title: __("Audio File"), initialOpen: true },
+            el(MediaUpload, {
+              onSelect: onSelectAudio,
+              allowedTypes: ["audio"],
+              value: attributes.audioID,
+              render: function (obj) {
+                return el(
+                  Button,
+                  {
+                    className: "components-button is-button is-default is-large",
+                    onClick: obj.open,
+                  },
+                  attributes.audioURL ? __("Replace Audio File") : __("Select Audio File")
+                );
+              },
+            }),
+        
+            attributes.audioURL &&
+              el(
+                "div",
+                { className: "logicvoid-audio-filename" },
+                el(
+                  "p",
+                  {},
+                  __("Selected audio: ") + attributes.audioURL.split("/").pop()
+                )
+              )
+          ),
+          // Content settings
+          el(
+            PanelBody,
+            { title: __("Content Settings"), initialOpen: true },
+            el(TextControl, {
+              label: __("Title"),
+              value: attributes.title,
+              onChange: function (value) {
+                props.setAttributes({ title: value });
+              },
+            }),
+            
+            el(TextareaControl, {
+              label: __("Description"),
+              value: attributes.description,
+              onChange: function (value) {
+                props.setAttributes({ description: value });
+              },
+            })
+          ),
+          // Image settings
+          el(
+            PanelBody,
+            { title: __("Image Settings"), initialOpen: true },
+            el(MediaUpload, {
+              onSelect: onSelectImage,
+              allowedTypes: ["image"],
+              value: attributes.imageID,
+              render: function (obj) {
+                return el(
+                  Button,
+                  {
+                    className:
+                      "components-button is-button is-default is-large",
+                    onClick: obj.open,
+                  },
+                  attributes.imageURL
+                    ? __("Replace Image")
+                    : __("Select Cover Image")
+                );
+              },
+            }),
+
+            attributes.imageURL &&
+              el(
+                "div",
+                { className: "editor-post-featured-image" },
+                el("img", { src: attributes.imageURL, alt: __("Cover image") })
+              ),
+
+            attributes.imageURL &&
+              el(
+                Button,
+                {
+                  className: "components-button is-link is-destructive",
+                  onClick: function () {
+                    props.setAttributes({
+                      imageID: null,
+                      imageURL: "",
+                    });
+                  },
+                },
+                __("Remove Cover Image")
+              )
+          ),
           // Color settings
           el(
             PanelBody,
@@ -178,51 +273,6 @@ function isValidHexColor(color) {
                 )
               )
             )
-          ),
-
-          el(
-            PanelBody,
-            { title: __("Image Settings"), initialOpen: true },
-            el(MediaUpload, {
-              onSelect: onSelectImage,
-              allowedTypes: ["image"],
-              value: attributes.imageID,
-              render: function (obj) {
-                return el(
-                  Button,
-                  {
-                    className:
-                      "components-button is-button is-default is-large",
-                    onClick: obj.open,
-                  },
-                  attributes.imageURL
-                    ? __("Replace Image")
-                    : __("Select Cover Image")
-                );
-              },
-            }),
-
-            attributes.imageURL &&
-              el(
-                "div",
-                { className: "editor-post-featured-image" },
-                el("img", { src: attributes.imageURL, alt: __("Cover image") })
-              ),
-
-            attributes.imageURL &&
-              el(
-                Button,
-                {
-                  className: "components-button is-link is-destructive",
-                  onClick: function () {
-                    props.setAttributes({
-                      imageID: null,
-                      imageURL: "",
-                    });
-                  },
-                },
-                __("Remove Cover Image")
-              )
           ),
         ),
 
