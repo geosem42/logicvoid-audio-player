@@ -1,0 +1,311 @@
+/* Modern Custom Audio Player Styles */
+:root {
+    --player-accent-color: #58a6ff;
+    --player-background: #0d1117;
+    --player-text-primary: #f0f6fc;
+    --player-text-secondary: #8b949e;
+    --player-control-bg: #21262d;
+    --player-progress-bg: #30363d;
+    --player-border-color: #30363d;
+}
+
+.logicvoid-audio-player-wrapper {
+    width: 100%;
+    margin: 1.5em 0;
+    border-radius: 12px;
+    background-color: var(--player-background);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--player-text-primary);
+    border: 1px solid var(--player-border-color);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.logicvoid-audio-player-wrapper:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.logicvoid-audio-player-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.logicvoid-audio-player-image {
+    flex: 0 0 150px;
+    background-color: #21262d;
+}
+
+.logicvoid-audio-player-image img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 0 !important;
+}
+
+.logicvoid-audio-player-content {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logicvoid-audio-player-info {
+    margin-bottom: 14px;
+}
+
+.logicvoid-audio-player-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: var(--player-text-primary);
+    line-height: 1.3;
+}
+
+.logicvoid-audio-description {
+    color: var(--player-text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.logicvoid-audio-player-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+}
+
+.logicvoid-audio-play-button,
+.logicvoid-audio-mute-button {
+    background-color: var(--player-control-bg);
+    color: var(--player-text-primary);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    flex-shrink: 0;
+}
+
+.logicvoid-audio-play-button:hover,
+.logicvoid-audio-mute-button:hover {
+    background-color: var(--player-accent-color);
+    transform: scale(1.05);
+}
+
+.logicvoid-audio-mute-button {
+    width: 32px;
+    height: 32px;
+}
+
+.logicvoid-audio-play-button svg,
+.logicvoid-audio-mute-button svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.logicvoid-audio-mute-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.pause-icon,
+.mute-icon {
+    display: none;
+}
+
+.playing .play-icon {
+    display: none;
+}
+
+.playing .pause-icon {
+    display: block;
+}
+
+.muted .volume-icon {
+    display: none;
+}
+
+.muted .mute-icon {
+    display: block;
+}
+
+.logicvoid-audio-progress-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0; /* Prevents flex item from overflowing */
+}
+
+.logicvoid-audio-progress-bar-container {
+    position: relative;
+    background-color: var(--player-progress-bg);
+    height: 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    flex-grow: 1;
+    overflow: visible;
+}
+
+.logicvoid-audio-progress-bar {
+    background-color: var(--player-accent-color);
+    height: 100%;
+    width: 0;
+    border-radius: 3px;
+    position: relative;
+    transition: width 0.1s linear;
+}
+
+.logicvoid-audio-progress-handle {
+    width: 12px;
+    height: 12px;
+    background-color: var(--player-accent-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 0%;
+    display: none;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+.logicvoid-audio-progress-bar-container:hover .logicvoid-audio-progress-handle {
+    display: block;
+}
+
+.logicvoid-audio-current-time,
+.logicvoid-audio-duration {
+    color: var(--player-text-secondary);
+    font-size: 0.85rem;
+    min-width: 45px;
+    text-align: center;
+}
+
+.logicvoid-audio-secondary-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.logicvoid-audio-volume-control {
+    width: 80px;
+}
+
+.logicvoid-audio-volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--player-progress-bg);
+    outline: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.logicvoid-audio-volume-slider:hover {
+    opacity: 1;
+}
+
+.logicvoid-audio-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--player-accent-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logicvoid-audio-volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--player-accent-color);
+    cursor: pointer;
+    border: none;
+}
+
+.logicvoid-audio-volume-slider::-moz-range-track {
+    background: var(--player-progress-bg);
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* Hide the default audio player */
+.logicvoid-audio-player-wrapper audio {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .logicvoid-audio-player-container {
+        flex-direction: column;
+    }
+    
+    .logicvoid-audio-player-image {
+        flex: 0 0 auto;
+        height: 120px;
+        width: 100%;
+    }
+    
+    .logicvoid-audio-player-image img {
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    .logicvoid-audio-player-content {
+        padding: 12px;
+    }
+    
+    .logicvoid-audio-player-title {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logicvoid-audio-player-controls {
+        gap: 8px;
+    }
+    
+    .logicvoid-audio-secondary-controls {
+        flex-wrap: wrap;
+    }
+    
+    .logicvoid-audio-volume-control {
+        width: 60px;
+    }
+    
+    .logicvoid-audio-play-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .logicvoid-audio-mute-button {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .logicvoid-audio-current-time,
+    .logicvoid-audio-duration {
+        min-width: 35px;
+        font-size: 0.75rem;
+    }
+    
+    .logicvoid-audio-progress-container {
+        gap: 6px;
+    }
+}
