@@ -72,7 +72,6 @@ function logicvoid_audio_player_register_block() {
                 'type' => 'string',
                 'default' => '',
             ),
-            // Replace the single color with all our color options
             'accentColor' => array(
                 'type' => 'string',
                 'default' => '#58a6ff',
@@ -202,10 +201,8 @@ function logicvoid_audio_player_render_block($attributes) {
         --player-border-color: ' . $border_color . ';
     "';
 
-    // Rest of the function remains the same
     $output = '<div class="logicvoid-audio-player-wrapper" id="' . $block_id . '" ' . $custom_style . '>';
     
-    // Container for flexible layout
     $output .= '<div class="logicvoid-audio-player-container">';
     
     // Image section
@@ -242,7 +239,7 @@ function logicvoid_audio_player_render_block($attributes) {
             // For external URLs, use wp_get_image_tag function
             $width = 300; // Default width
             $height = 300; // Default height
-            $output .= get_image_tag(
+            $output .= wp_get_image_tag(
                 0, // No attachment ID for external images
                 $image,
                 $title . ' cover',
