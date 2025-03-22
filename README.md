@@ -2,15 +2,6 @@
 
 A modern, responsive audio player as a Gutenberg block for WordPress.
 
-**Contributors:** logicvoid
-**Tags:** audio, player, gutenberg, block
-**Requires at least:** 6.0
-**Tested up to:** 6.7
-**Stable tag:** 1.0.0
-**Requires PHP:** 8.3
-**License:** GPL-2.0-or-later
-**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
-
 ## Description
 
 LogicVoid Audio Player provides a clean and modern audio player that seamlessly integrates into your WordPress website as a Gutenberg block.  This plugin allows you to easily embed audio files into your posts and pages, offering a responsive and user-friendly listening experience for your visitors.  The player is designed to be lightweight and customizable, ensuring it complements your website's design.
